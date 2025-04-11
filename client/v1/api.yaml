@@ -3,33 +3,33 @@ info:
   title: Definancy SDK
   version: 0.0.1.wip.20250411
   description: |-
-    #to-do
+    REST API for managing asset, network and contract configurations and management, and vault-based financial operations.
 
 tags:
   - name: Probe
     description: |-
-      #to-do
+      Health monitoring endpoints for verifying service availability and operational status.
   - name: Network
     description: |-
-      #to-do
+      Network configuration and status management.
   - name: Asset
     description: |-
-      #to-do
+      Asset configuration and status management.
   - name: Contract
     description: |-
-      #to-do
+      Contract configuration and status management.
   - name: Vault
     description: |-
-      #to-do
-  - name: Vault/Contract
+      Vault configuration and status management.
+  - name: Vault/Contract Subscription
     description: |-
-      #to-do
+      Management of vault contract associations within vaults.
   - name: Vault/Estimate
     description: |-
-      #to-do
+      Payment estimation for vault-based financial operations.
   - name: Vault/Payment Collection
     description: |-
-      #to-do
+      Payment processing and transaction management for vault-based financial operations.
 
 paths:
   # Probe
@@ -38,7 +38,7 @@ paths:
       operationId: HealthyCheck
       summary: Health Check
       description: |-
-        Returns Ok if healthy. # liveness
+        Returns Ok if healthy (liveness). 
       tags:
         - Probe
       responses:
@@ -61,7 +61,7 @@ paths:
       operationId: ReadyCheck
       summary: Ready Check
       description: |-
-        Returns OK if ready. # readyness
+        Returns OK if ready (readyness).
       tags:
         - Probe
       responses:
@@ -454,7 +454,7 @@ paths:
           description: |-
             Unknown Error.
 
-  # Vault/Contract
+  # Vault/Contract Subscription
   /api/v1/vault/{VaultId}/contract/{AssetUnit}/{NetworkId}:
     put:
       operationId: VaultSubscribeContract
@@ -462,7 +462,7 @@ paths:
       description: |-
         Subscribe a contract in the context of a vault.
       tags:
-        - Vault/Contract
+        - Vault/Contract Subscription
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/AssetUnit"
@@ -499,7 +499,7 @@ paths:
       description: |-
         Unsubscribe a contract in the context of a vault.
       tags:
-        - Vault/Contract
+        - Vault/Contract Subscription
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/AssetUnit"
@@ -537,7 +537,7 @@ paths:
       operationId: VaultGetEstimate
       summary: Get Estimate for Vault
       description: |-
-        #to-do
+        Create a new estimate.
       tags:
         - Vault/Estimate
       parameters:
@@ -797,14 +797,14 @@ components:
     'Name':
       type: string
       description: |-
-        #to-do
+        Human-readable identifier following naming conventions.
       pattern: '^([a-zA-Z]+[a-zA-Z0-9]*)+([ -][a-zA-Z]+([0-9]*[a-zA-Z])*)*$' #to-do
       minLength: 1
       maxLength: 32
     'Address':
       type: string
       description: |-
-        #to-do
+        Blockchain address format for specific network.
       minLength: 1
       maxLength: 64
     'Amount':
@@ -823,19 +823,15 @@ components:
     'Timestamp':
       type: integer
       description: |-
-        #to-do
+        UNIX timestamp in milliseconds for event tracking.
     'Enabled':
       type: boolean
       description: |-
         True when the resource is enabled.
-    'Summary':
-      type: string
-      description: |-
-        #to-do
     'URL':
       type: string
       description: |-
-        #to-do
+        Valid HTTP/HTTPS URL for external resource references.
 
     # Error
     'Error':
@@ -1060,7 +1056,7 @@ components:
     'ContractAmount':
       type: object
       description: |-
-        #to-do
+        Represents a quantified contract interaction with amount validation.
       properties:
         'contract-id':
           $ref: '#/components/schemas/ContractId'
@@ -1144,7 +1140,7 @@ components:
     'EstimateScenario':
       type: object
       description: |-
-        #to-do
+        Financial scenario calculation for transaction planning.
       properties:
         'price':
           $ref: '#/components/schemas/ContractAmount'
@@ -1158,36 +1154,36 @@ components:
     'PaymentCollectionId':
       type: string
       description: |-
-        The string that unequivocally identifies a payment collection.
+        Unequivocally identifies a payment collection.
     'PaymentCollectionOrder':
       type: object
       description: |-
-        #to-do
+        Commercial order details.
       properties:
         'id':
           type: string
           description: |-
-            #to-do
+            Order identifier.
         'description':
           type: string
           description: |-
-            #to-do
+            Human-readable order description.
         'schema':
           type: object
           description: |-
-            #to-do
+            Structured metadata format that allows the interpretation of the data property.
           additionalProperties: true
         'data':
           type: object
           description: |-
-            #to-do
+            Order data.
           additionalProperties: true
       required:
         - 'id'
     'PaymentCollectionConfig':
       type: object
       description: |-
-        #to-do
+        Payment collection parameters including pricing models and compliance requirements.
       properties:
         'order':
           $ref: '#/components/schemas/PaymentCollectionOrder'
@@ -1197,12 +1193,14 @@ components:
             $ref: '#/components/schemas/ContractAmount'
         'compliance-stuff': #to-do
           type: string
+          description: |-
+            Compliance verification data.
       required:
         - 'price-scenarios'
     'PaymentCollection':
       type: object
       description: |-
-        #to-do
+        Complete payment collection record with status tracking.
       properties:
         'id':
           $ref: '#/components/schemas/PaymentCollectionId'
@@ -1233,7 +1231,7 @@ components:
     'PaymentCollectionStatus':
       type: string
       description: |-
-        #to-do
+        Lifecycle state of a payment collection process.
       enum:
         - 'compliance'
         - 'waiting'
@@ -1244,7 +1242,7 @@ components:
     'PaymentCollectionScenario':
       type: object
       description: |-
-        #to-do
+        Individual payment scenario with execution details.
       properties:
         'price':
           $ref: '#/components/schemas/ContractAmount'
@@ -1271,7 +1269,7 @@ components:
     'PaymentCollectionScenarioStatus':
       type: string
       description: |-
-        #to-do
+        Execution state of a payment scenario.
       enum:
         - 'compliance'
         - 'waiting'
@@ -1285,11 +1283,11 @@ components:
     'BlockchainTransactionId':
       type: string
       description: |-
-        #to-do
+        Unique blockchain transaction identifier (txid/hash).
     'BlockchainTransactionStatus':
       type: string
       description: |-
-        #to-do
+        Validation state of blockchain transaction.
       enum:
         - 'compliance'
         - 'waiting'
@@ -1298,7 +1296,7 @@ components:
     'BlockchainTransaction':
       type: object
       description: |-
-        #to-do
+        Record of blockchain transaction with validation status.
       properties:
         'id':
           $ref: '#/components/schemas/BlockchainTransactionId'
