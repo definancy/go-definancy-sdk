@@ -24,10 +24,10 @@ tags:
   - name: Vault/Contract
     description: |-
       #to-do
-  - name: Vault/Operations/Estimate
+  - name: Vault/Estimate
     description: |-
       #to-do
-  - name: Vault/Operations/Payment Collection
+  - name: Vault/Payment Collection
     description: |-
       #to-do
 
@@ -114,7 +114,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to view the network information.
+            You are authenticated but forbidden to view the network information.
           content:
             application/json:
               schema:
@@ -155,7 +155,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to update the network configuration.
+            You are authenticated but forbidden to update the network configuration.
           content:
             application/json:
               schema:
@@ -198,7 +198,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to view the asset information.
+            You are authenticated but forbidden to view the asset information.
           content:
             application/json:
               schema:
@@ -239,7 +239,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to update the asset configuration.
+            You are authenticated but forbidden to update the asset configuration.
           content:
             application/json:
               schema:
@@ -283,7 +283,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to view the contract information.
+            You are authenticated but forbidden to view the contract information.
           content:
             application/json:
               schema:
@@ -325,7 +325,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to update the contract configuration.
+            You are authenticated but forbidden to update the contract configuration.
           content:
             application/json:
               schema:
@@ -368,7 +368,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to view the vault information.
+            You are authenticated but forbidden to view the vault information.
           content:
             application/json:
               schema:
@@ -410,7 +410,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to update the vault configuration.
+            You are authenticated but forbidden to update the vault configuration.
           content:
             application/json:
               schema:
@@ -428,29 +428,34 @@ paths:
       parameters:
         - $ref: "#/components/parameters/VaultId"
       responses:
-        #to-do
+        '200':
+          description: |-
+            Vault archived with success.
+            Returns the updated configuration for the vault.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vault'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            You are authenticated but forbidden to update the vault configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
         default:
           description: |-
             Unknown Error.
 
   # Vault/Contract
   /api/v1/vault/{VaultId}/contract/{AssetUnit}/{NetworkId}:
-    get:
-      operationId: VaultGetContract
-      summary: Get Contract for Vault
-      description: |-
-        View information about a specific contract in the context of a vault.
-      tags:
-        - Vault/Contract
-      parameters:
-        - $ref: "#/components/parameters/VaultId"
-        - $ref: "#/components/parameters/AssetUnit"
-        - $ref: "#/components/parameters/NetworkId"
-      responses:
-        #to-do
-        default:
-          description: |-
-            Unknown Error.
     put:
       operationId: VaultSubscribeContract
       summary: Subscribes a Contract for Vault
@@ -463,7 +468,28 @@ paths:
         - $ref: "#/components/parameters/AssetUnit"
         - $ref: "#/components/parameters/NetworkId"
       responses:
-        #to-do
+        '200':
+          description: |-
+            Vault subscribed contract with success.
+            Returns the updated configuration for the vault.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vault'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            You are authenticated but forbidden to update the vault configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
         default:
           description: |-
             Unknown Error.
@@ -479,12 +505,33 @@ paths:
         - $ref: "#/components/parameters/AssetUnit"
         - $ref: "#/components/parameters/NetworkId"
       responses:
-        #to-do
+        '200':
+          description: |-
+            Vault unsubscribed contract with success.
+            Returns the updated configuration for the vault.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vault'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            You are authenticated but forbidden to update the vault configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
         default:
           description: |-
             Unknown Error.
   
-  # Vault/Operations/Estimate
+  # Vault/Estimate
   /api/v1/vault/{VaultId}/estimate:
     post:
       operationId: VaultGetEstimate
@@ -492,7 +539,7 @@ paths:
       description: |-
         #to-do
       tags:
-        - Vault/Operations/Estimate
+        - Vault/Estimate
       parameters:
         - $ref: "#/components/parameters/VaultId"
       requestBody:
@@ -511,7 +558,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContractEstimate'
+                $ref: '#/components/schemas/Estimate'
           headers:
             Cache-Control: 
               schema:
@@ -527,7 +574,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to generate estimates.
+            You are authenticated but forbidden to generate estimates.
           content:
             application/json:
               schema:
@@ -536,7 +583,7 @@ paths:
           description: |-
             Unknown Error.
 
-  # Vault/Operations/Payment Collection
+  # Vault/Payment Collection
   /api/v1/vault/{VaultId}/payment-collection:
     post:
       operationId: CreatePaymentCollection
@@ -544,7 +591,7 @@ paths:
       description: |-
         Create a new payment collection.
       tags:
-        - Payment Collection
+        - Vault/Payment Collection
       parameters:
         - $ref: "#/components/parameters/VaultId"
       requestBody:
@@ -577,7 +624,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to add new payments collection.
+            You are authenticated but forbidden to add new payments collection.
           content:
             application/json:
               schema:
@@ -592,7 +639,7 @@ paths:
       description: |-
         View information about the existing payment collection.
       tags:
-        - Payment Collection
+        - Vault/Payment Collection
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/PaymentCollectionId"
@@ -619,7 +666,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to view payments collection.
+            You are authenticated but forbidden to view payments collection.
           content:
             application/json:
               schema:
@@ -633,7 +680,7 @@ paths:
       description: |-
         Update a payment collection.
       tags:
-        - Payment Collection
+        - Vault/Payment Collection
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/PaymentCollectionId"
@@ -667,7 +714,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to update payments collection.
+            You are authenticated but forbidden to update payments collection.
           content:
             application/json:
               schema:
@@ -681,7 +728,7 @@ paths:
       description: |-
         Archive a payment collection.
       tags:
-        - Payment Collection
+        - Vault/Payment Collection
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/PaymentCollectionId"
@@ -709,7 +756,7 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
         '403':
           description: |-
-            If you are authenticated but forbidden to archive payments collection.
+            You are authenticated but forbidden to archive payments collection.
           content:
             application/json:
               schema:
@@ -785,6 +832,10 @@ components:
       type: string
       description: |-
         #to-do
+    'URL':
+      type: string
+      description: |-
+        #to-do
 
     # Error
     'Error':
@@ -831,19 +882,23 @@ components:
       description: |-
         Additional context of the network.
       properties:
+        'name':
+          $ref: '#/components/schemas/Name'
+        'image':
+          $ref: '#/components/schemas/URL'
+        'website':
+          $ref: '#/components/schemas/URL'
+        'status':
+          $ref: '#/components/schemas/NetworkStatus'
         'created-at':
             $ref: '#/components/schemas/Timestamp'
         'updated-at':
             $ref: '#/components/schemas/Timestamp'
-        'name':
-          $ref: '#/components/schemas/Name'
-        'status':
-          $ref: '#/components/schemas/NetworkStatus'
       required:
-        - 'created-at'
-        - 'updated-at'
         - 'name'
         - 'status'
+        - 'created-at'
+        - 'updated-at'
     'NetworkConfig':
       type: object
       description: |-
@@ -888,19 +943,23 @@ components:
       description: |-
         Additional context of the asset.
       properties:
-        'created-at':
-            $ref: '#/components/schemas/Timestamp'
-        'updated-at':
-            $ref: '#/components/schemas/Timestamp'
         'name':
           $ref: '#/components/schemas/Name'
         'status':
           $ref: '#/components/schemas/AssetStatus'
+        'image':
+          $ref: '#/components/schemas/URL'
+        'website':
+          $ref: '#/components/schemas/URL'
+        'created-at':
+            $ref: '#/components/schemas/Timestamp'
+        'updated-at':
+            $ref: '#/components/schemas/Timestamp'
       required:
-        - 'created-at'
-        - 'updated-at'
         - 'name'
         - 'status'
+        - 'created-at'
+        - 'updated-at'
     'AssetConfig':
       type: object
       description: |-
@@ -952,10 +1011,6 @@ components:
       description: |-
         Additional context of the contract.
       properties:
-        'created-at':
-            $ref: '#/components/schemas/Timestamp'
-        'updated-at':
-            $ref: '#/components/schemas/Timestamp'
         'asset':
           $ref: '#/components/schemas/Asset'
         'network':
@@ -966,14 +1021,18 @@ components:
           $ref: '#/components/schemas/Decimals'
         'status':
           $ref: '#/components/schemas/ContractStatus'
+        'created-at':
+            $ref: '#/components/schemas/Timestamp'
+        'updated-at':
+            $ref: '#/components/schemas/Timestamp'
       required:
-        - 'created-at'
-        - 'updated-at'
         - 'asset'
         - 'network'
         - 'address'
         - 'decimals'
         - 'status'
+        - 'created-at'
+        - 'updated-at'
     'ContractConfig':
       type: object
       description: |-
@@ -1013,58 +1072,6 @@ components:
         - 'contract-id'
         - 'amount'
         - 'decimals'
-    'ContractPayStatus':
-      type: object
-      description: |-
-        #to-do
-      properties:
-        'summary':
-          $ref: '#/components/schemas/Summary'
-        'received-amount':
-          $ref: '#/components/schemas/Amount'
-        'transaction-list':
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionWithStatus'
-        'expire-at':
-          $ref: '#/components/schemas/Timestamp'
-        'authorization-at':
-          $ref: '#/components/schemas/Timestamp'
-      required:
-        - 'summary'
-        - 'received-amount'
-        - 'transaction-list'
-        - 'expired-at'
-    'ContractEstimate':
-      type: object
-      description: |-
-        #to-do
-      properties:
-        'price':
-          $ref: '#/components/schemas/ContractAmount'
-        'estimate':
-          $ref: '#/components/schemas/ContractAmount'
-      required:
-        - 'price'
-        - 'estimate'
-    'ContractPayScenario':
-      type: object
-      description: |-
-        #to-do
-      properties:
-        'price':
-          $ref: '#/components/schemas/ContractAmount'
-        'pay':
-          $ref: '#/components/schemas/ContractAmount'
-        'address':
-          $ref: '#/components/schemas/Address'
-        'status':
-          $ref: '#/components/schemas/ContractPayStatus'
-      required:
-        - 'price'
-        - 'pay'
-        - 'address'
-        - 'status'
 
     # Vault
     'VaultId':
@@ -1079,20 +1086,20 @@ components:
       description: |-
         Additional context of the vault.
       properties:
-        'created-at':
-            $ref: '#/components/schemas/Timestamp'
-        'updated-at':
-            $ref: '#/components/schemas/Timestamp'
         'archived-at':
             $ref: '#/components/schemas/Timestamp'
         'contracts':
           type: array
           items:
             $ref: '#/components/schemas/Contract'
+        'created-at':
+            $ref: '#/components/schemas/Timestamp'
+        'updated-at':
+            $ref: '#/components/schemas/Timestamp'
       required:
+        - 'contracts'
         - 'created-at'
         - 'updated-at'
-        - 'contracts'
     'VaultConfig':
       type: object
       description: |-
@@ -1124,6 +1131,29 @@ components:
         - 'info'
         - 'config'
 
+    # Vault - Estimate
+    'Estimate':
+      type: object
+      properties:
+        'ts':
+          $ref: '#/components/schemas/Timestamp'
+        'scenarios':
+          type: array
+          items:
+          $ref: '#/components/schemas/EstimateScenario'
+    'EstimateScenario':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'price':
+          $ref: '#/components/schemas/ContractAmount'
+        'pay':
+          $ref: '#/components/schemas/ContractAmount'
+      required:
+        - 'price'
+        - 'pay'
+
     # Vault - Payment Collection
     'PaymentCollectionId':
       type: string
@@ -1142,61 +1172,56 @@ components:
           type: string
           description: |-
             #to-do
-        'order':
+        'schema':
           type: object
           description: |-
             #to-do
-          properties:
-            'schema':
-              type: object
-              description: |-
-                #to-do
-              additionalProperties: true
-            'data':
-              type: object
-              description: |-
-                #to-do
-              additionalProperties: true
-          required:
-            - 'schema'
-            - 'data'
+          additionalProperties: true
+        'data':
+          type: object
+          description: |-
+            #to-do
+          additionalProperties: true
+      required:
+        - 'id'
     'PaymentCollectionConfig':
       type: object
       description: |-
         #to-do
       properties:
-        'vault-id':
-          $ref: '#/components/schemas/VaultId'
         'order':
           $ref: '#/components/schemas/PaymentCollectionOrder'
-        'price-list':
+        'price-scenarios':
           type: array
           items:
             $ref: '#/components/schemas/ContractAmount'
         'compliance-stuff': #to-do
           type: string
       required:
-        - 'vault-id'
-        - 'price'
+        - 'price-scenarios'
     'PaymentCollection':
       type: object
       description: |-
         #to-do
       properties:
-        'id': # empty for new, filled for updates
+        'id':
           $ref: '#/components/schemas/PaymentCollectionId'
         'info':
           type: object
           properties:
-            'swap':
+            'status':
+              $ref: '#/components/schemas/PaymentCollectionStatus'
+            'scenarios':
               type: array
               items:
-                $ref: '#/components/schemas/ContractPayScenario'
+                $ref: '#/components/schemas/PaymentCollectionScenario'
             'created-at':
               $ref: '#/components/schemas/Timestamp'
             'updated-at':
               $ref: '#/components/schemas/Timestamp'
           required:
+            - 'status'
+            - 'scenarios'
             - 'created-at'
             - 'updated-at'
         'config':
@@ -1205,10 +1230,48 @@ components:
         - 'id'
         - 'info'
         - 'config'
-
-    # Blockchain
-    'TransactionStatus':
+    'PaymentCollectionStatus':
       type: string
+      description: |-
+        #to-do
+      enum:
+        - 'compliance'
+        - 'waiting'
+        - 'confirming'
+        - 'confirmed'
+        - 'expired'
+        - 'cancelled'
+    'PaymentCollectionScenario':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'price':
+          $ref: '#/components/schemas/ContractAmount'
+        'pay':
+          $ref: '#/components/schemas/ContractAmount'
+        'address':
+          $ref: '#/components/schemas/Address'
+        'expire-at':
+          $ref: '#/components/schemas/Timestamp'
+        'status':
+          $ref: '#/components/schemas/PaymentCollectionScenarioStatus'
+        'received':
+          $ref: '#/components/schemas/ContractAmount'
+        'transaction-list':
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockchainTransaction'
+      required:
+        - 'price'
+        - 'pay'
+        - 'address'
+        - 'expire-at'
+        - 'status'
+    'PaymentCollectionScenarioStatus':
+      type: string
+      description: |-
+        #to-do
       enum:
         - 'compliance'
         - 'waiting'
@@ -1217,19 +1280,38 @@ components:
         - 'expired'
         - 'refunding'
         - 'refunded'
+
+    # Blockchain
+    'BlockchainTransactionId':
+      type: string
       description: |-
         #to-do
-    'TransactionWithStatus':
+    'BlockchainTransactionStatus':
+      type: string
+      description: |-
+        #to-do
+      enum:
+        - 'compliance'
+        - 'waiting'
+        - 'confirming'
+        - 'confirmed'
+    'BlockchainTransaction':
       type: object
       description: |-
         #to-do
       properties:
+        'id':
+          $ref: '#/components/schemas/BlockchainTransactionId'
+        'ts':
+          $ref: '#/components/schemas/Timestamp'
         'sender':
           $ref: '#/components/schemas/Address'
+        'receiver':
+          $ref: '#/components/schemas/Address'
         'amount':
-          $ref: '#/components/schemas/Amount'
+          $ref: '#/components/schemas/ContractAmount'
         'status':
-          $ref: '#/components/schemas/TransactionStatus'
+          $ref: '#/components/schemas/BlockchainTransactionStatus'
         'remaining-confirmations':
           type: integer
           description: |-
@@ -1237,7 +1319,10 @@ components:
           minimum: -1
           maximum: 65535
       required:
+        - 'id'
+        - 'ts'
         - 'sender'
+        - 'receiver'
         - 'amount'
         - 'status'
-        - 'confirmations'
+        - 'remaining-confirmations'
