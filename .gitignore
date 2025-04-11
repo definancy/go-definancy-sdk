@@ -29,5 +29,8 @@ coverage.html
 *.feature
 temp
 
+# Ignore
+*.ignore
+
 # Build
 /build/

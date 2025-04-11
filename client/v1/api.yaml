@@ -1,0 +1,1233 @@
+openapi: "3.0.1"
+info:
+  title: Definancy-SDK API
+  version: 0.0.1.wip.20250411
+  description: |-
+    #to-do
+
+tags:
+  - name: Probe
+    description: |-
+      #to-do
+  - name: Network
+    description: |-
+      #to-do
+  - name: Asset
+    description: |-
+      #to-do
+  - name: Contract
+    description: |-
+      #to-do
+  - name: Vault
+    description: |-
+      #to-do
+  - name: Payment Collection
+    description: |-
+      #to-do
+
+paths:
+  # Probe
+  /api/v1/healthy:
+    get:
+      operationId: HealthyCheck
+      summary: Health Check
+      description: |-
+        Returns Ok if healthy. # liveness
+      tags:
+        - Probe
+      responses:
+        '200':
+          content: {}
+          description: |-
+            OK.
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        default:
+          content: {}
+          description: |-
+            Unknown Error.
+  /api/v1/ready:
+    get:
+      operationId: ReadyCheck
+      summary: Ready Check
+      description: |-
+        Returns OK if ready. # readyness
+      tags:
+        - Probe
+      responses:
+        '200':
+          content: {}
+          description: |-
+            OK.
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        default:
+          content: {}
+          description: |-
+            Unknown Error.
+
+  # Network
+  /api/v1/network/{NetworkId}:
+    get:
+      operationId: GetNetwork
+      summary: Get Network
+      description: |-
+        View information about a specific network.
+      tags:
+        - Network
+      parameters:
+        - $ref: "#/components/parameters/NetworkId"
+      responses:
+        '200':
+          description: |-
+            Information about the network.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Network'
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to view the network information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+    put:
+      operationId: ConfigNetwork
+      summary: Config Network
+      description: |-
+        Configures a Network.
+      tags:
+        - Network
+      parameters:
+        - $ref: "#/components/parameters/NetworkId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkConfig'
+        required: true
+      responses:
+        '200':
+          description: |-
+            Network configured with success.
+            Returns the updated configuration for the network.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Network'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to update the network configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+
+  # Asset
+  /api/v1/asset/{AssetUnit}:
+    get:
+      operationId: GetAsset
+      summary: Get Asset
+      description: |-
+        View information about a specific asset.
+      tags:
+        - Asset
+      parameters:
+        - $ref: "#/components/parameters/AssetUnit"
+      responses:
+        '200':
+          description: |-
+            Information about the asset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to view the asset information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+    put:
+      operationId: ConfigAsset
+      summary: Config Asset
+      description: |-
+        Configures an Asset.
+      tags:
+        - Asset
+      parameters:
+        - $ref: "#/components/parameters/AssetUnit"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetConfig'
+        required: true
+      responses:
+        '200':
+          description: |-
+            Asset configured with success.
+            Returns the updated configuration for the asset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to update the asset configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+
+  # Contract
+  /api/v1/contract/{AssetUnit}/{NetworkId}:
+    get:
+      operationId: GetContract
+      summary: Get Contract
+      description: |-
+        View information about a specific contract.
+      tags:
+        - Contract
+      parameters:
+        - $ref: "#/components/parameters/AssetUnit"
+        - $ref: "#/components/parameters/NetworkId"
+      responses:
+        '200':
+          description: |-
+            Information about the contract.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contract'
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to view the contract information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+    put:
+      operationId: ConfigContract
+      summary: Config Contract
+      description: |-
+        Configures a Contract.
+      tags:
+        - Contract
+      parameters:
+        - $ref: "#/components/parameters/AssetUnit"
+        - $ref: "#/components/parameters/NetworkId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractConfig'
+        required: true
+      responses:
+        '200':
+          description: |-
+            Contract configured with success.
+            Returns the updated configuration for the contract.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contract'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to update the contract configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+  /api/v1/vault/{VaultId}/contract/{AssetUnit}/{NetworkId}:
+    get:
+      operationId: VaultGetContract
+      summary: Get Contract for Vault
+      description: |-
+        View information about a specific contract in the context of a vault.
+      tags:
+        - Contract
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/AssetUnit"
+        - $ref: "#/components/parameters/NetworkId"
+      responses:
+        #to-do
+        default:
+          description: |-
+            Unknown Error.
+    put:
+      operationId: VaultSubscribeContract
+      summary: Subscribes a Contract for Vault
+      description: |-
+        Subscribe a contract in the context of a vault.
+      tags:
+        - Contract
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/AssetUnit"
+        - $ref: "#/components/parameters/NetworkId"
+      responses:
+        #to-do
+        default:
+          description: |-
+            Unknown Error.
+    delete:
+      operationId: VaultUnsubscribeContract
+      summary: Unsubscribes a Contract for Vault
+      description: |-
+        Unsubscribe a contract in the context of a vault.
+      tags:
+        - Contract
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/AssetUnit"
+        - $ref: "#/components/parameters/NetworkId"
+      responses:
+        #to-do
+        default:
+          description: |-
+            Unknown Error.
+  /api/v1/vault/{VaultId}/estimate:
+    post:
+      operationId: VaultGetEstimate
+      summary: Get Estimate for Vault
+      description: |-
+        #to-do
+      tags:
+        - Contract
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContractAmount'
+              minItems: 1
+        required: true
+      responses:
+        '200':
+          description: |-
+            Information about the asset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractEstimate'
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to generate estimates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+
+  # Vault
+  /api/v1/vault/{VaultId}:
+    get:
+      operationId: GetVault
+      summary: Get Vault
+      description: |-
+        View information about a specific vault.
+      tags:
+        - Vault
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+      responses:
+        '200':
+          description: |-
+            Information about the vault.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vault'
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to view the vault information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+    put:
+      operationId: UpdateVault
+      summary: Insert/Update Vault
+      description: |-
+        Creates the vault if it doesn't exist.
+        Updates the vault configuration.
+      tags:
+        - Vault
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VaultConfig'
+        required: true        
+      responses:
+        '200':
+          description: |-
+            Vault configured with success.
+            Returns the updated configuration for the vault.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vault'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to update the vault configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+    delete:
+      operationId: ArchiveVault
+      summary: Archive Vault
+      description: |-
+        Archives a vault.
+      tags:
+        - Vault
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+      responses:
+        #to-do
+        default:
+          description: |-
+            Unknown Error.
+
+  # Payment Collection
+  /api/v1/vault/{VaultId}/payment-collection:
+    post:
+      operationId: CreatePaymentCollection
+      summary: Create Payment Collection
+      description: |-
+        Create a new payment collection.
+      tags:
+        - Payment Collection
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCollectionConfig'
+        required: true
+      responses:
+        '200':
+          description: |-
+            Information about the new payment collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCollection'
+        '400':
+          description: |-
+            A list of errors that occurred when creating a payment collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to add new payments collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+  /api/v1/vault/{VaultId}/payment-collection/{PaymentCollectionId}:
+    get:
+      operationId: GetPaymentCollection
+      summary: Get Payment Collection
+      description: |-
+        View information about the existing payment collection.
+      tags:
+        - Payment Collection
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/PaymentCollectionId"
+      responses:
+        '200':
+          description: |-
+            Information about the payment collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCollection'
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to view payments collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+    put:
+      operationId: UpdatePaymentCollection
+      summary: Update Payment Collection
+      description: |-
+        Update a payment collection.
+      tags:
+        - Payment Collection
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/PaymentCollectionId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCollectionConfig'
+        required: true
+      responses:
+        '200':
+          description: |-
+            Information about the updated payment collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCollection'
+        '400':
+          description: |-
+            A list of errors that occurred when updating the payment collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to update payments collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+    delete:
+      operationId: ArchivePaymentCollection
+      summary: Archive a Payment Collection
+      description: |-
+        Archive a payment collection.
+      tags:
+        - Payment Collection
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/PaymentCollectionId"
+      responses:
+        '200':
+          description: |-
+            Information about the archived payment collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCollection'
+        '400':
+          description: |-
+            A list of errors that occurred when archiving the payment collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to archive payments collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+
+components:
+  parameters:
+    'NetworkId':
+      in: path
+      name: NetworkId
+      schema:
+        $ref: "#/components/schemas/NetworkId"
+      required: true
+    'AssetUnit':
+      in: path
+      name: AssetUnit
+      schema:
+        $ref: "#/components/schemas/AssetUnit"
+      required: true
+    'VaultId':
+      in: path
+      name: VaultId
+      schema:
+        $ref: "#/components/schemas/VaultId"
+      required: true
+    'PaymentCollectionId':
+      in: path
+      name: PaymentCollectionId
+      schema:
+        $ref: "#/components/schemas/PaymentCollectionId"
+      required: true
+
+  schemas:
+    # Common
+    'Name':
+      type: string
+      description: |-
+        #to-do
+      pattern: '^([a-zA-Z]+[a-zA-Z0-9]*)+([ -][a-zA-Z]+([0-9]*[a-zA-Z])*)*$' #to-do
+      minLength: 1
+      maxLength: 32
+    'Address':
+      type: string
+      description: |-
+        #to-do
+      minLength: 1
+      maxLength: 64
+    'Amount':
+      type: string
+      description: |-
+        Describes an amount.
+      pattern: '^[0-9]+$'
+      minLength: 1
+      maxLength: 78
+    'Decimals':
+      type: integer
+      description: |-
+        The number of digits to use after the decimal point when displaying an amount.
+      minimum: 0
+      maximum: 77
+    'Timestamp':
+      type: integer
+      description: |-
+        #to-do
+    'Enabled':
+      type: boolean
+      description: |-
+        True when the resource is enabled.
+    'Summary':
+      type: string
+      description: |-
+        #to-do
+
+    # Error
+    'Error':
+      type: object
+      description: |-
+        An error message with a typified code.
+      properties:
+        'code':
+          type: string
+          pattern: '^[a-zA-Z]{3}-[0-9]{3}$'
+          minLength: 7
+          maxLength: 7
+        'message':
+          type: string
+          minLength: 1
+          maxLength: 256
+      required:
+        - 'code'
+        - 'message'
+    'ErrorList':
+      type: array
+      description: |-
+        List of Error Messages.
+      items:
+        $ref: '#/components/schemas/Error'
+      maxItems: 16
+
+    # Network
+    'NetworkId':
+      type: string
+      description: |-
+        The string that unequivocally identifies a network.
+      pattern: '^[a-zA-Z]*$'
+      minLength: 3
+      maxLength: 32
+    'NetworkStatus':
+      type: string
+      enum:
+        - 'active'
+        - 'inactive'
+        - 'discontinued'
+    'NetworkInfo':
+      type: object
+      description: |-
+        Additional context of the network.
+      properties:
+        'created-at':
+            $ref: '#/components/schemas/Timestamp'
+        'updated-at':
+            $ref: '#/components/schemas/Timestamp'
+        'name':
+          $ref: '#/components/schemas/Name'
+        'status':
+          $ref: '#/components/schemas/NetworkStatus'
+      required:
+        - 'created-at'
+        - 'updated-at'
+        - 'name'
+        - 'status'
+    'NetworkConfig':
+      type: object
+      description: |-
+        Configuration properties for a network.
+      properties:
+        'enabled':
+          $ref: '#/components/schemas/Enabled'
+      required:
+        - 'enabled'
+    'Network':
+      type: object
+      description: |-
+        Network information and configuration.
+      properties:
+        'id':
+          $ref: '#/components/schemas/NetworkId'
+        'info':
+          $ref: '#/components/schemas/NetworkInfo'
+        'config':
+          $ref: '#/components/schemas/NetworkConfig'
+      required:
+        - 'id'
+        - 'info'
+        - 'config'
+
+    # Asset
+    'AssetUnit':
+      type: string
+      description: |-
+        The name of unit of this asset.
+      pattern: '^[a-zA-Z]{3,}$' #to-do
+      minLength: 3
+      maxLength: 8
+    'AssetStatus':
+      type: string
+      enum:
+        - 'active'
+        - 'inactive'
+        - 'discontinued'
+    'AssetInfo':
+      type: object
+      description: |-
+        Additional context of the asset.
+      properties:
+        'created-at':
+            $ref: '#/components/schemas/Timestamp'
+        'updated-at':
+            $ref: '#/components/schemas/Timestamp'
+        'name':
+          $ref: '#/components/schemas/Name'
+        'status':
+          $ref: '#/components/schemas/AssetStatus'
+      required:
+        - 'created-at'
+        - 'updated-at'
+        - 'name'
+        - 'status'
+    'AssetConfig':
+      type: object
+      description: |-
+        Configuration properties for an asset.
+      properties:
+        'enabled':
+          $ref: '#/components/schemas/Enabled'
+      required:
+        - 'enabled'
+    'Asset':
+      type: object
+      description: |-
+        Asset information and configuration.
+      properties:
+        'unit':
+          $ref: '#/components/schemas/AssetUnit'
+        'info':
+          $ref: '#/components/schemas/AssetInfo'
+        'config':
+          $ref: '#/components/schemas/AssetConfig'
+      required:
+        - 'unit'
+        - 'info'
+        - 'config'
+
+    # Contract
+    'ContractId':
+      type: object
+      description: |-
+        Contract identifier.
+        Assets can operate across multiple networks, while networks can host multiple assets.
+        This identifier encodes the asset-network relationship, functioning as a protocol-agnostic anchor for transactions and validation.
+      properties:
+        'asset-unit':
+          $ref: '#/components/schemas/AssetUnit'
+        'network-id':
+          $ref: '#/components/schemas/NetworkId'
+      required:
+        - 'asset-unit'
+        - 'network-id'
+    'ContractStatus':
+      type: string
+      enum:
+        - 'active'
+        - 'inactive'
+        - 'discontinued'
+    'ContractInfo':
+      type: object
+      description: |-
+        Additional context of the contract.
+      properties:
+        'created-at':
+            $ref: '#/components/schemas/Timestamp'
+        'updated-at':
+            $ref: '#/components/schemas/Timestamp'
+        'asset':
+          $ref: '#/components/schemas/Asset'
+        'network':
+          $ref: '#/components/schemas/Network'
+        'address':
+          $ref: '#/components/schemas/Address'
+        'decimals':
+          $ref: '#/components/schemas/Decimals'
+        'status':
+          $ref: '#/components/schemas/ContractStatus'
+      required:
+        - 'created-at'
+        - 'updated-at'
+        - 'asset'
+        - 'network'
+        - 'address'
+        - 'decimals'
+        - 'status'
+    'ContractConfig':
+      type: object
+      description: |-
+        Configuration properties for a contract.
+      properties:
+        'enabled':
+          $ref: '#/components/schemas/Enabled'
+      required:
+        - 'enabled'
+    'Contract':
+      type: object
+      description: |-
+        Contract information and configuration.
+      properties:
+        'contract-id':
+          $ref: '#/components/schemas/ContractId'
+        'info':
+          $ref: '#/components/schemas/ContractInfo'
+        'config':
+          $ref: '#/components/schemas/ContractConfig'
+      required:
+        - 'contract-id'
+        - 'info'
+        - 'config'
+    'ContractAmount':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'contract-id':
+          $ref: '#/components/schemas/ContractId'
+        'amount':
+          $ref: '#/components/schemas/Amount'
+        'decimals':
+          $ref: '#/components/schemas/Decimals'
+      required:
+        - 'contract-id'
+        - 'amount'
+        - 'decimals'
+    'ContractPayStatus':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'summary':
+          $ref: '#/components/schemas/Summary'
+        'received-amount':
+          $ref: '#/components/schemas/Amount'
+        'transaction-list':
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionWithStatus'
+        'expire-at':
+          $ref: '#/components/schemas/Timestamp'
+        'authorization-at':
+          $ref: '#/components/schemas/Timestamp'
+      required:
+        - 'summary'
+        - 'received-amount'
+        - 'transaction-list'
+        - 'expired-at'
+    'ContractEstimate':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'price':
+          $ref: '#/components/schemas/ContractAmount'
+        'estimate':
+          $ref: '#/components/schemas/ContractAmount'
+      required:
+        - 'price'
+        - 'estimate'
+    'ContractPayScenario':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'price':
+          $ref: '#/components/schemas/ContractAmount'
+        'pay':
+          $ref: '#/components/schemas/ContractAmount'
+        'address':
+          $ref: '#/components/schemas/Address'
+        'status':
+          $ref: '#/components/schemas/ContractPayStatus'
+      required:
+        - 'price'
+        - 'pay'
+        - 'address'
+        - 'status'
+
+    # Vault
+    'VaultId':
+      type: string
+      description: |-
+        The string that unequivocally identifies a vault.
+      pattern: '^[a-zA-Z0-9]+[a-zA-Z0-9\-]*$'
+      minLength: 1
+      maxLength: 36
+    'VaultInfo':
+      type: object
+      description: |-
+        Additional context of the vault.
+      properties:
+        'created-at':
+            $ref: '#/components/schemas/Timestamp'
+        'updated-at':
+            $ref: '#/components/schemas/Timestamp'
+        'archived-at':
+            $ref: '#/components/schemas/Timestamp'
+        'contracts':
+          type: array
+          items:
+            $ref: '#/components/schemas/Contract'
+      required:
+        - 'created-at'
+        - 'updated-at'
+        - 'contracts'
+    'VaultConfig':
+      type: object
+      description: |-
+        Configuration properties for a contract.
+        If the update request omits an optional property, that property will maintain it's current value.
+      properties:
+        'contract-ids':
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractId'
+        'enabled':
+          $ref: '#/components/schemas/Enabled'
+      required:
+        - 'contract-ids'
+        - 'enabled'
+    'Vault':
+      type: object
+      description: |-
+        Vault information and configuration.
+      properties:
+        'id':
+          $ref: '#/components/schemas/VaultId'
+        'info':
+          $ref: '#/components/schemas/VaultInfo'
+        'config':
+          $ref: '#/components/schemas/VaultConfig'
+      required:
+        - 'id'
+        - 'info'
+        - 'config'
+
+    # Vault - Payment Collection
+    'PaymentCollectionId':
+      type: string
+      description: |-
+        The string that unequivocally identifies a payment collection.
+    'PaymentCollectionOrder':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'id':
+          type: string
+          description: |-
+            #to-do
+        'description':
+          type: string
+          description: |-
+            #to-do
+        'order':
+          type: object
+          description: |-
+            #to-do
+          properties:
+            'schema':
+              type: object
+              description: |-
+                #to-do
+              additionalProperties: true
+            'data':
+              type: object
+              description: |-
+                #to-do
+              additionalProperties: true
+          required:
+            - 'schema'
+            - 'data'
+    'PaymentCollectionConfig':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'vault-id':
+          $ref: '#/components/schemas/VaultId'
+        'order':
+          $ref: '#/components/schemas/PaymentCollectionOrder'
+        'price-list':
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractAmount'
+        'compliance-stuff': #to-do
+          type: string
+      required:
+        - 'vault-id'
+        - 'price'
+    'PaymentCollection':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'id': # empty for new, filled for updates
+          $ref: '#/components/schemas/PaymentCollectionId'
+        'info':
+          type: object
+          properties:
+            'swap':
+              type: array
+              items:
+                $ref: '#/components/schemas/ContractPayScenario'
+            'created-at':
+              $ref: '#/components/schemas/Timestamp'
+            'updated-at':
+              $ref: '#/components/schemas/Timestamp'
+          required:
+            - 'created-at'
+            - 'updated-at'
+        'config':
+          $ref: '#/components/schemas/PaymentCollectionConfig'
+      required:
+        - 'id'
+        - 'info'
+        - 'config'
+
+    # Blockchain
+    'TransactionStatus':
+      type: string
+      enum:
+        - 'compliance'
+        - 'waiting'
+        - 'confirming'
+        - 'confirmed'
+        - 'expired'
+        - 'refunding'
+        - 'refunded'
+      description: |-
+        #to-do
+    'TransactionWithStatus':
+      type: object
+      description: |-
+        #to-do
+      properties:
+        'sender':
+          $ref: '#/components/schemas/Address'
+        'amount':
+          $ref: '#/components/schemas/Amount'
+        'status':
+          $ref: '#/components/schemas/TransactionStatus'
+        'remaining-confirmations':
+          type: integer
+          description: |-
+            Number of confirmations left until the transaction acceptance.
+          minimum: -1
+          maximum: 65535
+      required:
+        - 'sender'
+        - 'amount'
+        - 'status'
+        - 'confirmations'
