@@ -1,6 +1,6 @@
-openapi: "3.0.1"
+openapi: "3.1.1"
 info:
-  title: Definancy-SDK API
+  title: Definancy SDK
   version: 0.0.1.wip.20250411
   description: |-
     #to-do
@@ -21,7 +21,13 @@ tags:
   - name: Vault
     description: |-
       #to-do
-  - name: Payment Collection
+  - name: Vault/Contract
+    description: |-
+      #to-do
+  - name: Vault/Operations/Estimate
+    description: |-
+      #to-do
+  - name: Vault/Operations/Payment Collection
     description: |-
       #to-do
 
@@ -327,106 +333,7 @@ paths:
         default:
           description: |-
             Unknown Error.
-  /api/v1/vault/{VaultId}/contract/{AssetUnit}/{NetworkId}:
-    get:
-      operationId: VaultGetContract
-      summary: Get Contract for Vault
-      description: |-
-        View information about a specific contract in the context of a vault.
-      tags:
-        - Contract
-      parameters:
-        - $ref: "#/components/parameters/VaultId"
-        - $ref: "#/components/parameters/AssetUnit"
-        - $ref: "#/components/parameters/NetworkId"
-      responses:
-        #to-do
-        default:
-          description: |-
-            Unknown Error.
-    put:
-      operationId: VaultSubscribeContract
-      summary: Subscribes a Contract for Vault
-      description: |-
-        Subscribe a contract in the context of a vault.
-      tags:
-        - Contract
-      parameters:
-        - $ref: "#/components/parameters/VaultId"
-        - $ref: "#/components/parameters/AssetUnit"
-        - $ref: "#/components/parameters/NetworkId"
-      responses:
-        #to-do
-        default:
-          description: |-
-            Unknown Error.
-    delete:
-      operationId: VaultUnsubscribeContract
-      summary: Unsubscribes a Contract for Vault
-      description: |-
-        Unsubscribe a contract in the context of a vault.
-      tags:
-        - Contract
-      parameters:
-        - $ref: "#/components/parameters/VaultId"
-        - $ref: "#/components/parameters/AssetUnit"
-        - $ref: "#/components/parameters/NetworkId"
-      responses:
-        #to-do
-        default:
-          description: |-
-            Unknown Error.
-  /api/v1/vault/{VaultId}/estimate:
-    post:
-      operationId: VaultGetEstimate
-      summary: Get Estimate for Vault
-      description: |-
-        #to-do
-      tags:
-        - Contract
-      parameters:
-        - $ref: "#/components/parameters/VaultId"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/ContractAmount'
-              minItems: 1
-        required: true
-      responses:
-        '200':
-          description: |-
-            Information about the asset.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContractEstimate'
-          headers:
-            Cache-Control: 
-              schema:
-                type: string
-                enum:
-                  - no-store
-        '401':
-          description: |-
-            Missing authorization.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-        '403':
-          description: |-
-            If you are authenticated but forbidden to generate estimates.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-        default:
-          description: |-
-            Unknown Error.
-
+  
   # Vault
   /api/v1/vault/{VaultId}:
     get:
@@ -526,7 +433,110 @@ paths:
           description: |-
             Unknown Error.
 
-  # Payment Collection
+  # Vault/Contract
+  /api/v1/vault/{VaultId}/contract/{AssetUnit}/{NetworkId}:
+    get:
+      operationId: VaultGetContract
+      summary: Get Contract for Vault
+      description: |-
+        View information about a specific contract in the context of a vault.
+      tags:
+        - Vault/Contract
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/AssetUnit"
+        - $ref: "#/components/parameters/NetworkId"
+      responses:
+        #to-do
+        default:
+          description: |-
+            Unknown Error.
+    put:
+      operationId: VaultSubscribeContract
+      summary: Subscribes a Contract for Vault
+      description: |-
+        Subscribe a contract in the context of a vault.
+      tags:
+        - Vault/Contract
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/AssetUnit"
+        - $ref: "#/components/parameters/NetworkId"
+      responses:
+        #to-do
+        default:
+          description: |-
+            Unknown Error.
+    delete:
+      operationId: VaultUnsubscribeContract
+      summary: Unsubscribes a Contract for Vault
+      description: |-
+        Unsubscribe a contract in the context of a vault.
+      tags:
+        - Vault/Contract
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+        - $ref: "#/components/parameters/AssetUnit"
+        - $ref: "#/components/parameters/NetworkId"
+      responses:
+        #to-do
+        default:
+          description: |-
+            Unknown Error.
+  
+  # Vault/Operations/Estimate
+  /api/v1/vault/{VaultId}/estimate:
+    post:
+      operationId: VaultGetEstimate
+      summary: Get Estimate for Vault
+      description: |-
+        #to-do
+      tags:
+        - Vault/Operations/Estimate
+      parameters:
+        - $ref: "#/components/parameters/VaultId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContractAmount'
+              minItems: 1
+        required: true
+      responses:
+        '200':
+          description: |-
+            Information about the asset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractEstimate'
+          headers:
+            Cache-Control: 
+              schema:
+                type: string
+                enum:
+                  - no-store
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            If you are authenticated but forbidden to generate estimates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown Error.
+
+  # Vault/Operations/Payment Collection
   /api/v1/vault/{VaultId}/payment-collection:
     post:
       operationId: CreatePaymentCollection
