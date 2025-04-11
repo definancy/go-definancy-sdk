@@ -21,13 +21,13 @@ tags:
   - name: Vault
     description: |-
       Vault configuration and status management.
-  - name: Vault/Contract Subscription
+  - name: Vault • Contract Subscription
     description: |-
       Management of vault contract associations within vaults.
-  - name: Vault/Estimate
+  - name: Vault • Estimate
     description: |-
       Payment estimation for vault-based financial operations.
-  - name: Vault/Payment Collection
+  - name: Vault • Payment Collection
     description: |-
       Payment processing and transaction management for vault-based financial operations.
 
@@ -454,7 +454,7 @@ paths:
           description: |-
             Unknown Error.
 
-  # Vault/Contract Subscription
+  # Vault • Contract Subscription
   /api/v1/vault/{VaultId}/contract/{AssetUnit}/{NetworkId}:
     put:
       operationId: VaultSubscribeContract
@@ -462,7 +462,7 @@ paths:
       description: |-
         Subscribe a contract in the context of a vault.
       tags:
-        - Vault/Contract Subscription
+        - Vault • Contract Subscription
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/AssetUnit"
@@ -499,7 +499,7 @@ paths:
       description: |-
         Unsubscribe a contract in the context of a vault.
       tags:
-        - Vault/Contract Subscription
+        - Vault • Contract Subscription
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/AssetUnit"
@@ -531,7 +531,7 @@ paths:
           description: |-
             Unknown Error.
   
-  # Vault/Estimate
+  # Vault • Estimate
   /api/v1/vault/{VaultId}/estimate:
     post:
       operationId: VaultGetEstimate
@@ -539,7 +539,7 @@ paths:
       description: |-
         Create a new estimate.
       tags:
-        - Vault/Estimate
+        - Vault • Estimate
       parameters:
         - $ref: "#/components/parameters/VaultId"
       requestBody:
@@ -583,7 +583,7 @@ paths:
           description: |-
             Unknown Error.
 
-  # Vault/Payment Collection
+  # Vault • Payment Collection
   /api/v1/vault/{VaultId}/payment-collection:
     post:
       operationId: CreatePaymentCollection
@@ -591,7 +591,7 @@ paths:
       description: |-
         Create a new payment collection.
       tags:
-        - Vault/Payment Collection
+        - Vault • Payment Collection
       parameters:
         - $ref: "#/components/parameters/VaultId"
       requestBody:
@@ -639,7 +639,7 @@ paths:
       description: |-
         View information about the existing payment collection.
       tags:
-        - Vault/Payment Collection
+        - Vault • Payment Collection
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/PaymentCollectionId"
@@ -680,7 +680,7 @@ paths:
       description: |-
         Update a payment collection.
       tags:
-        - Vault/Payment Collection
+        - Vault • Payment Collection
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/PaymentCollectionId"
@@ -728,7 +728,7 @@ paths:
       description: |-
         Archive a payment collection.
       tags:
-        - Vault/Payment Collection
+        - Vault • Payment Collection
       parameters:
         - $ref: "#/components/parameters/VaultId"
         - $ref: "#/components/parameters/PaymentCollectionId"
