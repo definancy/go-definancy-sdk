@@ -1,6 +1,6 @@
 openapi: '3.0.0'
 info:
-  title: Definancy SDK v1
+  title: Definancy SDK
   version: 0.0.1.wip.20250623
   description: |-
     REST API for managing asset, network and contract configurations and management, and vault-based financial operations.
