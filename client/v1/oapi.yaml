@@ -87,6 +87,48 @@ paths:
                 $ref: '#/components/schemas/Status'
 
   # Network
+  /api/v1/network:
+    get:
+      operationId: GetNetworks
+      summary: List Networks
+      description: |-
+        Retrieves all networks.
+      tags:
+        - Network
+      responses:
+        '200':
+          description: |-
+            Networks retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Network'
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/CacheControlHeader'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            You are authenticated but forbidden to view payments collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
   /api/v1/network/{network-id}:
     get:
       operationId: GetNetwork
@@ -193,6 +235,48 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
 
   # Asset
+  /api/v1/asset:
+    get:
+      operationId: GetAssets
+      summary: List Assets
+      description: |-
+        Retrieves all assets.
+      tags:
+        - Asset
+      responses:
+        '200':
+          description: |-
+            Assets retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/CacheControlHeader'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            You are authenticated but forbidden to view payments collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
   /api/v1/asset/{asset-unit}:
     get:
       operationId: GetAsset
@@ -299,6 +383,48 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
 
   # Contract
+  /api/v1/contract:
+    get:
+      operationId: GetContracts
+      summary: List Contracts
+      description: |-
+        Retrieves all contracts.
+      tags:
+        - Contract
+      responses:
+        '200':
+          description: |-
+            Contracts retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contract'
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/CacheControlHeader'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            You are authenticated but forbidden to view payments collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
   /api/v1/contract/{asset-unit}/{network-id}:
     get:
       operationId: GetContract
@@ -407,6 +533,48 @@ paths:
                 $ref: '#/components/schemas/ErrorList'
   
   # Vault
+  /api/v1/vault:
+    get:
+      operationId: GetVaults
+      summary: List Vaults
+      description: |-
+        Retrieves all vaults.
+      tags:
+        - Vault
+      responses:
+        '200':
+          description: |-
+            Vaults retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vault'
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/CacheControlHeader'
+        '401':
+          description: |-
+            Missing authorization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '403':
+          description: |-
+            You are authenticated but forbidden to view payments collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        default:
+          description: |-
+            Unknown error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
   /api/v1/vault/{vault-id}:
     get:
       operationId: GetVault
