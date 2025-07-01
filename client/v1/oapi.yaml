@@ -1435,7 +1435,7 @@ components:
       required:
         - "ts"
         - "scenarios"
-        - "scenarios"
+        - "compliance"
     "EstimateScenario":
       type: object
       description: |-
